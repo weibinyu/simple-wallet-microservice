@@ -1,5 +1,5 @@
 # simple-wallet-microservice
-simple wallet microservice running on the JVM that manages credit/debit transactions on behalf of players
+simple wallet microservice running on the JVM that manages credit/debit transactions on behalf of players.
 This application fulfills the functional requirements(while honoring the constraints) provided by the challenge and
 persist data across after restart is possible because of the h2 database used. But to be honest, the application is not yet production-ready. 
 
