@@ -1,42 +1,47 @@
 package com.example.demo.controller;
 
+import com.example.demo.domain.TransactionEntity;
+import com.example.demo.service.TransactionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
+//Request url has to be in format of /api/actionName?username= to reach controller
 @RestController
+@RequestMapping("/api")
 public class Controller {
 
-    private Map<String,Object> params = new HashMap<>();
+    @Autowired
+    private TransactionService transactionService;
 
-    @GetMapping("/balance/{user_id}")
-    public Map<String, Object> GetBalance(@PathVariable("user_id") String userId) {
-        params.clear();
-        params.put("id",userId);
-        return params;
+    @GetMapping("/balance")
+    public int GetBalance(String username) throws Exception {
+        return transactionService.checkBalance(username);
     }
 
-    @GetMapping("/transaction_history/{user_id}")
-    public Map<String, Object> GetTranscationHistory(@PathVariable("user_id") String userId) {
-        params.clear();
-        params.put("id",userId);
-        return params;
+    @GetMapping("/transaction_history")
+    public List <TransactionEntity> GetTransactionHistory(String username) throws Exception {
+        return transactionService.getTransactionHistory(username);
     }
 
-    @PutMapping("/credit/{user_id}/{amount}")
-    public Map<String, Object> credit(@PathVariable("user_id") String userId, int amount) {
-        params.clear();
-        params.put("id",userId);
-        params.put("amount",amount);
-        return params;
+    //maps requestBody which contain amount and transactionID to transactionEntity
+    @PutMapping("/credit")
+    public TransactionEntity credit(String username,
+                                    @RequestBody TransactionEntity transactionEntity) throws Exception {
+        //set username from param into transactionEntity
+        transactionEntity.setUsername(username);
+        return transactionService.credit(transactionEntity);
     }
 
-    @PutMapping("/withdrawal/{user_id}/{amount}")
-    public Map<String, Object> withdrawal(@PathVariable("user_id") String userId, int amount) {
-        params.clear();
-        params.put("id",userId);
-        params.put("amount",amount);
-        return params;
+    //maps requestBody to transactionEntity
+    @PutMapping("/withdraw")
+    public TransactionEntity withdraw(String username,
+                                      @RequestBody TransactionEntity transactionEntity) throws Exception {
+        //set username in transactionEntity
+        transactionEntity.setUsername(username);
+        return transactionService.withdraw(transactionEntity);
     }
 }
+
+
