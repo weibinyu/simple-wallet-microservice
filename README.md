@@ -13,7 +13,7 @@ Reasons are the following:
 
 -Poor exception handling. A custom Exception Handler is created but no real content.
 
-In order to run the applicaiton, clone it from repository and run demoApplication class under src/main/java/com/example/demo/ in ide. Mvc test cases can be find at src/test/java/com/example/demo/
+In order to run the applicaiton, clone it from repository and open it in ide (it is written using Intellj) then run demoApplication class under src/main/java/com/example/demo/. Mvc test cases can be find at src/test/java/com/example/demo/
 
 Postman is recommended for sending HTTP requests to the application. Following URLs are supported:
 
